@@ -1,6 +1,8 @@
 package paymentmethod
 
-import "github.com/avivbintangaringga/dompetkita/types"
+import (
+	"github.com/avivbintangaringga/dompetkita/types"
+)
 
 type service struct{}
 
@@ -11,12 +13,20 @@ func NewService() *service {
 func (s *service) GetPaymentMethods() ([]types.PaymentMethod, error) {
 	paymentMethods := []types.PaymentMethod{
 		{
-			Id:       "dompetsaya",
+			Id:       "qris-dompetsaya",
 			Name:     "Dompet Saya",
 			ImageUrl: "https://www.google.com",
 			Category: "QRIS",
 			TotalFee: 1000,
 		},
+		{
+			Id:       "bt-dompetsaya",
+			Name:     "Dompet Saya",
+			ImageUrl: "https://www.google.com",
+			Category: "BT",
+			TotalFee: 3000,
+		},
 	}
+
 	return paymentMethods, nil
 }

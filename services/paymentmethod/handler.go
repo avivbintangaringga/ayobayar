@@ -21,8 +21,8 @@ func NewHandler(svc types.PaymentMethodService) *handler {
 func (h *handler) GetPaymentMethods(w http.ResponseWriter, r *http.Request) {
 	paymentMethods, err := h.svc.GetPaymentMethods()
 	if err != nil {
-		slog.Error("GetPaymentMethods: %s", err)
-		json.WriteError(w, 500, "internal server error")
+		slog.Error("GetPaymentMethods", "error", err)
+		json.WriteError(w, http.StatusInternalServerError, "internal server error")
 		return
 	}
 

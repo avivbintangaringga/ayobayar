@@ -7,4 +7,6 @@ type Payment struct {
 
 type PaymentService interface {
 	GetPaymentList() ([]Payment, error)
+	GetPaymentDetail(id string) (*Payment, error)
+	CreatePayment(data Payment) (*Payment, error)
 }

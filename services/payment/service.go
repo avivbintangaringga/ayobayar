@@ -1,24 +1,49 @@
 package payment
 
-import "github.com/avivbintangaringga/dompetkita/types"
+import (
+	"errors"
+
+	"github.com/avivbintangaringga/dompetkita/types"
+)
 
 type service struct{}
+
+var payments = []types.Payment{
+	{
+		Id:   "1",
+		Desc: "payment 1",
+	},
+	{
+		Id:   "2",
+		Desc: "payment 2",
+	},
+}
 
 func NewService() *service {
 	return &service{}
 }
 
 func (s *service) GetPaymentList() ([]types.Payment, error) {
-	payments := []types.Payment{
-		{
-			Id:   "1",
-			Desc: "payment 1",
-		},
-		{
-			Id:   "2",
-			Desc: "payment 2",
-		},
+	return payments, nil
+}
+
+func (s *service) GetPaymentDetail(id string) (*types.Payment, error) {
+	var data *types.Payment
+
+	for _, i := range payments {
+		if i.Id == id {
+			data = &i
+			break
+		}
 	}
 
-	return payments, nil
+	if data == nil {
+		return nil, errors.New("item not found")
+	}
+
+	return data, nil
+}
+
+func (s *service) CreatePayment(data types.Payment) (*types.Payment, error) {
+	return nil, nil
 }

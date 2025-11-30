@@ -14,7 +14,9 @@ func registerRoutes(r *chi.Mux) {
 		// Payments
 		paymentService := payment.NewService()
 		paymentHandler := payment.NewHandler(paymentService)
+		r.Get("/payments/{id}", paymentHandler.GetPaymentDetail)
 		r.Get("/payments", paymentHandler.ListPayments)
+		r.Post("/payments", paymentHandler.PostPayment)
 
 		// Payment Methods
 		paymentMethodService := paymentmethod.NewService()
