@@ -21,5 +21,4 @@ func main() {
 		log.Fatalf("Error starting server: %s", err)
 		os.Exit(1)
 	}
-
 }
