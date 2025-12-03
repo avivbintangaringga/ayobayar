@@ -24,10 +24,6 @@ func (s *Service) GetPaymentDetail(id string) (*types.Payment, error) {
 	return s.paymentRepo.FindById(id)
 }
 
-func (s *Service) CreatePayment(data types.PaymentRequest) (*types.Payment, error) {
-	payment := types.Payment{
-		Desc:   data.Desc,
-		Amount: data.Amount,
-	}
-	return s.paymentRepo.Create(payment)
+func (s *Service) CreatePayment(data types.Payment) (*types.Payment, error) {
+	return s.paymentRepo.Create(data)
 }
