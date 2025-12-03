@@ -1,53 +1,33 @@
 package payment
 
 import (
-	"errors"
-
 	"github.com/avivbintangaringga/dompetkita/types"
 )
 
-type service struct{}
-
-var payments = []types.Payment{
-	{
-		Id:     "1",
-		Desc:   "payment 1",
-		Amount: 15000,
-		Status: "SUCCESS",
-	},
-	{
-		Id:     "2",
-		Desc:   "payment 2",
-		Amount: 143000,
-		Status: "PENDING",
-	},
+type Service struct {
+	paymentRepo       types.PaymentRepository
+	paymentMethodRepo types.PaymentMethodRepository
 }
 
-func NewService() *service {
-	return &service{}
-}
-
-func (s *service) GetPaymentList() ([]types.Payment, error) {
-	return payments, nil
-}
-
-func (s *service) GetPaymentDetail(id string) (*types.Payment, error) {
-	var data *types.Payment
-
-	for _, i := range payments {
-		if i.Id == id {
-			data = &i
-			break
-		}
+func NewService(paymentRepo types.PaymentRepository, paymentMethodRepo types.PaymentMethodRepository) *Service {
+	return &Service{
+		paymentRepo:       paymentRepo,
+		paymentMethodRepo: paymentMethodRepo,
 	}
-
-	if data == nil {
-		return nil, errors.New("item not found")
-	}
-
-	return data, nil
 }
 
-func (s *service) CreatePayment(data types.Payment) (*types.Payment, error) {
-	return nil, nil
+func (s *Service) GetPaymentList() ([]types.Payment, error) {
+	return s.paymentRepo.List()
+}
+
+func (s *Service) GetPaymentDetail(id string) (*types.Payment, error) {
+	return s.paymentRepo.FindById(id)
+}
+
+func (s *Service) CreatePayment(data types.PaymentRequest) (*types.Payment, error) {
+	payment := types.Payment{
+		Desc:   data.Desc,
+		Amount: data.Amount,
+	}
+	return s.paymentRepo.Create(payment)
 }

@@ -4,29 +4,16 @@ import (
 	"github.com/avivbintangaringga/dompetkita/types"
 )
 
-type service struct{}
-
-func NewService() *service {
-	return &service{}
+type Service struct {
+	repository types.PaymentMethodRepository
 }
 
-func (s *service) GetPaymentMethods() ([]types.PaymentMethod, error) {
-	paymentMethods := []types.PaymentMethod{
-		{
-			Id:       "qris-dompetsaya",
-			Name:     "Dompet Saya",
-			ImageUrl: "https://www.google.com",
-			Category: "QRIS",
-			TotalFee: 1000,
-		},
-		{
-			Id:       "bt-dompetsaya",
-			Name:     "Dompet Saya",
-			ImageUrl: "https://www.google.com",
-			Category: "BT",
-			TotalFee: 3000,
-		},
+func NewService(repository types.PaymentMethodRepository) *Service {
+	return &Service{
+		repository: repository,
 	}
+}
 
-	return paymentMethods, nil
+func (s *Service) GetPaymentMethods() ([]types.PaymentMethod, error) {
+	return s.repository.List()
 }

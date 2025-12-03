@@ -8,17 +8,17 @@ import (
 	"github.com/avivbintangaringga/dompetkita/types"
 )
 
-type handler struct {
+type Handler struct {
 	svc types.PaymentMethodService
 }
 
-func NewHandler(svc types.PaymentMethodService) *handler {
-	return &handler{
+func NewHandler(svc types.PaymentMethodService) *Handler {
+	return &Handler{
 		svc: svc,
 	}
 }
 
-func (h *handler) GetPaymentMethods(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetPaymentMethods(w http.ResponseWriter, r *http.Request) {
 	paymentMethods, err := h.svc.GetPaymentMethods()
 	if err != nil {
 		slog.Error("GetPaymentMethods", "error", err)
