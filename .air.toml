@@ -1,11 +1,11 @@
 root = "."
 testdata_dir = "testdata"
-tmp_dir = "tmp"
+tmp_dir = "./bin/.tmp"
 
 [build]
   args_bin = []
-  bin = "./bin/dompetkita"
-  cmd = "go build -o ./bin/dompetkita ./cmd/main.go"
+  bin = "./bin/ayobayar"
+  cmd = "go build -o ./bin/ayobayar ./cmd/main.go"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata"]
   exclude_file = []
