@@ -18,6 +18,7 @@ type Payments struct {
 	Description     string
 	Status          string
 	CallbackURL     string
+	RedirectURL     string
 	MerchantID      string
 	MerchantOrderID string
 	UserEmail       string

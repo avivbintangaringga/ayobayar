@@ -23,6 +23,7 @@ type paymentsTable struct {
 	Description     postgres.ColumnString
 	Status          postgres.ColumnString
 	CallbackURL     postgres.ColumnString
+	RedirectURL     postgres.ColumnString
 	MerchantID      postgres.ColumnString
 	MerchantOrderID postgres.ColumnString
 	UserEmail       postgres.ColumnString
@@ -75,13 +76,14 @@ func newPaymentsTableImpl(schemaName, tableName, alias string) paymentsTable {
 		DescriptionColumn     = postgres.StringColumn("description")
 		StatusColumn          = postgres.StringColumn("status")
 		CallbackURLColumn     = postgres.StringColumn("callback_url")
+		RedirectURLColumn     = postgres.StringColumn("redirect_url")
 		MerchantIDColumn      = postgres.StringColumn("merchant_id")
 		MerchantOrderIDColumn = postgres.StringColumn("merchant_order_id")
 		UserEmailColumn       = postgres.StringColumn("user_email")
 		UserNameColumn        = postgres.StringColumn("user_name")
 		CreatedAtColumn       = postgres.TimestampColumn("created_at")
-		allColumns            = postgres.ColumnList{IDColumn, PaymentMethodIDColumn, AmountColumn, DescriptionColumn, StatusColumn, CallbackURLColumn, MerchantIDColumn, MerchantOrderIDColumn, UserEmailColumn, UserNameColumn, CreatedAtColumn}
-		mutableColumns        = postgres.ColumnList{PaymentMethodIDColumn, AmountColumn, DescriptionColumn, StatusColumn, CallbackURLColumn, MerchantIDColumn, MerchantOrderIDColumn, UserEmailColumn, UserNameColumn, CreatedAtColumn}
+		allColumns            = postgres.ColumnList{IDColumn, PaymentMethodIDColumn, AmountColumn, DescriptionColumn, StatusColumn, CallbackURLColumn, RedirectURLColumn, MerchantIDColumn, MerchantOrderIDColumn, UserEmailColumn, UserNameColumn, CreatedAtColumn}
+		mutableColumns        = postgres.ColumnList{PaymentMethodIDColumn, AmountColumn, DescriptionColumn, StatusColumn, CallbackURLColumn, RedirectURLColumn, MerchantIDColumn, MerchantOrderIDColumn, UserEmailColumn, UserNameColumn, CreatedAtColumn}
 		defaultColumns        = postgres.ColumnList{CreatedAtColumn}
 	)
 
@@ -95,6 +97,7 @@ func newPaymentsTableImpl(schemaName, tableName, alias string) paymentsTable {
 		Description:     DescriptionColumn,
 		Status:          StatusColumn,
 		CallbackURL:     CallbackURLColumn,
+		RedirectURL:     RedirectURLColumn,
 		MerchantID:      MerchantIDColumn,
 		MerchantOrderID: MerchantOrderIDColumn,
 		UserEmail:       UserEmailColumn,

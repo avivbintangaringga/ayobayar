@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS payments (
     description VARCHAR(255) NOT NULL,
     status VARCHAR(255) NOT NULL,
     callback_url VARCHAR(1024) NOT NULL,
+    redirect_url VARCHAR(1024) NOT NULL,
     merchant_id VARCHAR(255) NOT NULL,
     merchant_order_id VARCHAR(255) NOT NULL,
     user_email VARCHAR(255) NOT NULL,

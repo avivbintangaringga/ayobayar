@@ -12,6 +12,7 @@ type Payment struct {
 	Desc            string `json:"desc"`
 	Status          string `json:"status"`
 	CallbackUrl     string `json:"callback_url"`
+	RedirectUrl     string `json:"redirect_url"`
 	MerchantId      string `json:"merchant_id"`
 	MerchantOrderId string `json:"merchant_order_id"`
 	UserEmail       string `json:"email"`
