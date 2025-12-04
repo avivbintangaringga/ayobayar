@@ -4,7 +4,7 @@ run: | jet-generate
 	@air
 
 jet-generate: | migrate-up
-	@jet -dsn="${DATABASE_URL}" -schema=public -path=./.gen
+	@jet -dsn="${DATABASE_URL}" -schema=public -path=./db/jet
 
 migrate-up:
 	@goose up
