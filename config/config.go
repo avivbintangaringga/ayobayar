@@ -40,8 +40,8 @@ func getEnvInt(key string, fallback int) int {
 
 	intValue, err := strconv.Atoi(value)
 	if err != nil {
-		return intValue
+		return fallback
 	}
 
-	return fallback
+	return intValue
 }
