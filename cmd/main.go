@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -20,7 +21,7 @@ type app struct {
 
 func main() {
 	app := &app{
-		addr: config.Env.Addr,
+		addr: fmt.Sprintf(":%d", config.Env.Port),
 	}
 
 	err := startServer(app)
