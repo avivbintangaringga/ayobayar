@@ -20,14 +20,16 @@ type paymentsTable struct {
 	ID              postgres.ColumnString
 	PaymentMethodID postgres.ColumnString
 	Amount          postgres.ColumnInteger
-	Description     postgres.ColumnString
 	Status          postgres.ColumnString
+	ExpiryTime      postgres.ColumnTimestamp
 	CallbackURL     postgres.ColumnString
 	RedirectURL     postgres.ColumnString
 	MerchantID      postgres.ColumnString
 	MerchantOrderID postgres.ColumnString
-	UserEmail       postgres.ColumnString
-	UserName        postgres.ColumnString
+	CustomerEmail   postgres.ColumnString
+	CustomerName    postgres.ColumnString
+	CustomerPhone   postgres.ColumnString
+	ProductDetails  postgres.ColumnString
 	CreatedAt       postgres.ColumnTimestamp
 
 	AllColumns     postgres.ColumnList
@@ -73,17 +75,19 @@ func newPaymentsTableImpl(schemaName, tableName, alias string) paymentsTable {
 		IDColumn              = postgres.StringColumn("id")
 		PaymentMethodIDColumn = postgres.StringColumn("payment_method_id")
 		AmountColumn          = postgres.IntegerColumn("amount")
-		DescriptionColumn     = postgres.StringColumn("description")
 		StatusColumn          = postgres.StringColumn("status")
+		ExpiryTimeColumn      = postgres.TimestampColumn("expiry_time")
 		CallbackURLColumn     = postgres.StringColumn("callback_url")
 		RedirectURLColumn     = postgres.StringColumn("redirect_url")
 		MerchantIDColumn      = postgres.StringColumn("merchant_id")
 		MerchantOrderIDColumn = postgres.StringColumn("merchant_order_id")
-		UserEmailColumn       = postgres.StringColumn("user_email")
-		UserNameColumn        = postgres.StringColumn("user_name")
+		CustomerEmailColumn   = postgres.StringColumn("customer_email")
+		CustomerNameColumn    = postgres.StringColumn("customer_name")
+		CustomerPhoneColumn   = postgres.StringColumn("customer_phone")
+		ProductDetailsColumn  = postgres.StringColumn("product_details")
 		CreatedAtColumn       = postgres.TimestampColumn("created_at")
-		allColumns            = postgres.ColumnList{IDColumn, PaymentMethodIDColumn, AmountColumn, DescriptionColumn, StatusColumn, CallbackURLColumn, RedirectURLColumn, MerchantIDColumn, MerchantOrderIDColumn, UserEmailColumn, UserNameColumn, CreatedAtColumn}
-		mutableColumns        = postgres.ColumnList{PaymentMethodIDColumn, AmountColumn, DescriptionColumn, StatusColumn, CallbackURLColumn, RedirectURLColumn, MerchantIDColumn, MerchantOrderIDColumn, UserEmailColumn, UserNameColumn, CreatedAtColumn}
+		allColumns            = postgres.ColumnList{IDColumn, PaymentMethodIDColumn, AmountColumn, StatusColumn, ExpiryTimeColumn, CallbackURLColumn, RedirectURLColumn, MerchantIDColumn, MerchantOrderIDColumn, CustomerEmailColumn, CustomerNameColumn, CustomerPhoneColumn, ProductDetailsColumn, CreatedAtColumn}
+		mutableColumns        = postgres.ColumnList{PaymentMethodIDColumn, AmountColumn, StatusColumn, ExpiryTimeColumn, CallbackURLColumn, RedirectURLColumn, MerchantIDColumn, MerchantOrderIDColumn, CustomerEmailColumn, CustomerNameColumn, CustomerPhoneColumn, ProductDetailsColumn, CreatedAtColumn}
 		defaultColumns        = postgres.ColumnList{CreatedAtColumn}
 	)
 
@@ -94,14 +98,16 @@ func newPaymentsTableImpl(schemaName, tableName, alias string) paymentsTable {
 		ID:              IDColumn,
 		PaymentMethodID: PaymentMethodIDColumn,
 		Amount:          AmountColumn,
-		Description:     DescriptionColumn,
 		Status:          StatusColumn,
+		ExpiryTime:      ExpiryTimeColumn,
 		CallbackURL:     CallbackURLColumn,
 		RedirectURL:     RedirectURLColumn,
 		MerchantID:      MerchantIDColumn,
 		MerchantOrderID: MerchantOrderIDColumn,
-		UserEmail:       UserEmailColumn,
-		UserName:        UserNameColumn,
+		CustomerEmail:   CustomerEmailColumn,
+		CustomerName:    CustomerNameColumn,
+		CustomerPhone:   CustomerPhoneColumn,
+		ProductDetails:  ProductDetailsColumn,
 		CreatedAt:       CreatedAtColumn,
 
 		AllColumns:     allColumns,

@@ -15,13 +15,15 @@ type Payments struct {
 	ID              string `sql:"primary_key"`
 	PaymentMethodID string
 	Amount          int64
-	Description     string
 	Status          string
+	ExpiryTime      time.Time
 	CallbackURL     string
 	RedirectURL     string
 	MerchantID      string
 	MerchantOrderID string
-	UserEmail       string
-	UserName        string
+	CustomerEmail   string
+	CustomerName    string
+	CustomerPhone   string
+	ProductDetails  string
 	CreatedAt       time.Time
 }

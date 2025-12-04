@@ -17,12 +17,13 @@ type paymentMethodsTable struct {
 	postgres.Table
 
 	// Columns
-	ID        postgres.ColumnString
-	Name      postgres.ColumnString
-	ImageURL  postgres.ColumnString
-	TotalFee  postgres.ColumnInteger
-	Category  postgres.ColumnString
-	CreatedAt postgres.ColumnTimestamp
+	ID            postgres.ColumnString
+	Name          postgres.ColumnString
+	BigImageURL   postgres.ColumnString
+	SmallImageURL postgres.ColumnString
+	TotalFee      postgres.ColumnInteger
+	Category      postgres.ColumnString
+	CreatedAt     postgres.ColumnTimestamp
 
 	AllColumns     postgres.ColumnList
 	MutableColumns postgres.ColumnList
@@ -64,27 +65,29 @@ func newPaymentMethodsTable(schemaName, tableName, alias string) *PaymentMethods
 
 func newPaymentMethodsTableImpl(schemaName, tableName, alias string) paymentMethodsTable {
 	var (
-		IDColumn        = postgres.StringColumn("id")
-		NameColumn      = postgres.StringColumn("name")
-		ImageURLColumn  = postgres.StringColumn("image_url")
-		TotalFeeColumn  = postgres.IntegerColumn("total_fee")
-		CategoryColumn  = postgres.StringColumn("category")
-		CreatedAtColumn = postgres.TimestampColumn("created_at")
-		allColumns      = postgres.ColumnList{IDColumn, NameColumn, ImageURLColumn, TotalFeeColumn, CategoryColumn, CreatedAtColumn}
-		mutableColumns  = postgres.ColumnList{NameColumn, ImageURLColumn, TotalFeeColumn, CategoryColumn, CreatedAtColumn}
-		defaultColumns  = postgres.ColumnList{CreatedAtColumn}
+		IDColumn            = postgres.StringColumn("id")
+		NameColumn          = postgres.StringColumn("name")
+		BigImageURLColumn   = postgres.StringColumn("big_image_url")
+		SmallImageURLColumn = postgres.StringColumn("small_image_url")
+		TotalFeeColumn      = postgres.IntegerColumn("total_fee")
+		CategoryColumn      = postgres.StringColumn("category")
+		CreatedAtColumn     = postgres.TimestampColumn("created_at")
+		allColumns          = postgres.ColumnList{IDColumn, NameColumn, BigImageURLColumn, SmallImageURLColumn, TotalFeeColumn, CategoryColumn, CreatedAtColumn}
+		mutableColumns      = postgres.ColumnList{NameColumn, BigImageURLColumn, SmallImageURLColumn, TotalFeeColumn, CategoryColumn, CreatedAtColumn}
+		defaultColumns      = postgres.ColumnList{CreatedAtColumn}
 	)
 
 	return paymentMethodsTable{
 		Table: postgres.NewTable(schemaName, tableName, alias, allColumns...),
 
 		//Columns
-		ID:        IDColumn,
-		Name:      NameColumn,
-		ImageURL:  ImageURLColumn,
-		TotalFee:  TotalFeeColumn,
-		Category:  CategoryColumn,
-		CreatedAt: CreatedAtColumn,
+		ID:            IDColumn,
+		Name:          NameColumn,
+		BigImageURL:   BigImageURLColumn,
+		SmallImageURL: SmallImageURLColumn,
+		TotalFee:      TotalFeeColumn,
+		Category:      CategoryColumn,
+		CreatedAt:     CreatedAtColumn,
 
 		AllColumns:     allColumns,
 		MutableColumns: mutableColumns,

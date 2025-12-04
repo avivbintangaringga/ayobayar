@@ -63,14 +63,16 @@ func (h *Handler) PostPayment(w http.ResponseWriter, r *http.Request) {
 	}
 
 	paymentData := types.Payment{
+		PaymentMethodId: data.PaymentMethodId,
 		Amount:          data.Amount,
-		Desc:            data.Desc,
+		ExpiryTime:      data.ExpiryTime,
 		CallbackUrl:     data.CallbackUrl,
+		RedirectUrl:     data.RedirectUrl,
 		MerchantId:      data.MerchantId,
 		MerchantOrderId: data.MerchantOrderId,
-		UserEmail:       data.UserEmail,
-		UserName:        data.UserName,
-		PaymentMethodId: data.PaymentMethodId,
+		CustomerEmail:   data.CustomerEmail,
+		CustomerName:    data.CustomerName,
+		ProductDetails:  data.ProductDetails,
 	}
 
 	payment, err := h.svc.CreatePayment(paymentData)

@@ -12,10 +12,11 @@ import (
 )
 
 type PaymentMethods struct {
-	ID        string `sql:"primary_key"`
-	Name      string
-	ImageURL  string
-	TotalFee  int32
-	Category  string
-	CreatedAt time.Time
+	ID            string `sql:"primary_key"`
+	Name          string
+	BigImageURL   string
+	SmallImageURL string
+	TotalFee      int32
+	Category      string
+	CreatedAt     time.Time
 }

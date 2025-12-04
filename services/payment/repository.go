@@ -7,16 +7,16 @@ import (
 
 var payments = []types.Payment{
 	{
-		Id:     "1",
-		Desc:   "payment 1",
-		Amount: 15000,
-		Status: "SUCCESS",
+		Id:             "1",
+		ProductDetails: "payment 1",
+		Amount:         15000,
+		Status:         "SUCCESS",
 	},
 	{
-		Id:     "2",
-		Desc:   "payment 2",
-		Amount: 143000,
-		Status: "PENDING",
+		Id:             "2",
+		ProductDetails: "payment 2",
+		Amount:         143000,
+		Status:         "PENDING",
 	},
 }
 
