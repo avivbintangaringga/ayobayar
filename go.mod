@@ -1,4 +1,4 @@
-module github.com/avivbintangaringga/dompetkita
+module github.com/avivbintangaringga/ayobayar
 
 go 1.25.3
 

@@ -1,6 +1,6 @@
 package paymentmethod
 
-import "github.com/avivbintangaringga/dompetkita/types"
+import "github.com/avivbintangaringga/ayobayar/types"
 
 type Repository struct {
 	paymentMethods []types.PaymentMethod

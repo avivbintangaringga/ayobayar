@@ -4,8 +4,8 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/avivbintangaringga/dompetkita/json"
-	"github.com/avivbintangaringga/dompetkita/types"
+	"github.com/avivbintangaringga/ayobayar/json"
+	"github.com/avivbintangaringga/ayobayar/types"
 )
 
 type Handler struct {

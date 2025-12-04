@@ -3,7 +3,7 @@ package common
 import (
 	"net/http"
 
-	"github.com/avivbintangaringga/dompetkita/json"
+	"github.com/avivbintangaringga/ayobayar/json"
 )
 
 type handler struct{}

@@ -1,7 +1,7 @@
 package payment
 
 import (
-	"github.com/avivbintangaringga/dompetkita/types"
+	"github.com/avivbintangaringga/ayobayar/types"
 	"github.com/teris-io/shortid"
 )
 

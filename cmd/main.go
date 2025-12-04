@@ -8,9 +8,9 @@ import (
 
 	"net/http"
 
-	"github.com/avivbintangaringga/dompetkita/cmd/api"
-	"github.com/avivbintangaringga/dompetkita/cmd/web"
-	"github.com/avivbintangaringga/dompetkita/config"
+	"github.com/avivbintangaringga/ayobayar/cmd/api"
+	"github.com/avivbintangaringga/ayobayar/cmd/web"
+	"github.com/avivbintangaringga/ayobayar/config"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )

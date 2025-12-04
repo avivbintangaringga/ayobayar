@@ -1,7 +1,7 @@
 package paymentmethod
 
 import (
-	"github.com/avivbintangaringga/dompetkita/types"
+	"github.com/avivbintangaringga/ayobayar/types"
 )
 
 type Service struct {

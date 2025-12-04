@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/avivbintangaringga/dompetkita/types"
+	"github.com/avivbintangaringga/ayobayar/types"
 	"github.com/go-playground/validator/v10"
 )
 

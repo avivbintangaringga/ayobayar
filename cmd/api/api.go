@@ -3,9 +3,9 @@ package api
 import (
 	"net/http"
 
-	"github.com/avivbintangaringga/dompetkita/services/common"
-	"github.com/avivbintangaringga/dompetkita/services/payment"
-	"github.com/avivbintangaringga/dompetkita/services/paymentmethod"
+	"github.com/avivbintangaringga/ayobayar/services/common"
+	"github.com/avivbintangaringga/ayobayar/services/payment"
+	"github.com/avivbintangaringga/ayobayar/services/paymentmethod"
 	"github.com/go-chi/chi/v5"
 )
 
