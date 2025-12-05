@@ -18,7 +18,7 @@ func NewApiHandler(app *app) http.Handler {
 	r.MethodNotAllowed(commonHandler.HandleNotAllowed)
 
 	// Payment Methods
-	paymentMethodRepo := paymentmethod.NewRepository()
+	paymentMethodRepo := paymentmethod.NewRepository(app.db)
 	paymentMethodService := paymentmethod.NewService(paymentMethodRepo)
 	paymentMethodHandler := paymentmethod.NewHandler(paymentMethodService)
 	r.Get("/paymentmethods", paymentMethodHandler.GetPaymentMethods)

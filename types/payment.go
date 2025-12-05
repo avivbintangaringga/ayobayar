@@ -39,10 +39,16 @@ type PaymentRequest struct {
 	ProductDetails  string    `json:"product_details" validate:"required,min=1,max=255"`
 }
 
+type PaymentResponse struct {
+	PaymentUrl  string  `json:"payment_url"`
+	QrString    string  `json:"qr_string"`
+	PaymentData Payment `json:"payment_data"`
+}
+
 type PaymentService interface {
 	GetPaymentList() ([]Payment, error)
 	GetPaymentDetail(id string) (*Payment, error)
-	CreatePayment(data Payment) (*Payment, error)
+	CreatePayment(data Payment) (*Payment, *UpstreamPaymentResult, error)
 }
 
 type PaymentRepository interface {

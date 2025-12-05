@@ -18,5 +18,6 @@ type PaymentMethods struct {
 	SmallImageURL string
 	TotalFee      int32
 	Category      string
+	IsAvailable   bool
 	CreatedAt     time.Time
 }

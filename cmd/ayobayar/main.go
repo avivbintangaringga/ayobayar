@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"log"
 	"os"
@@ -13,23 +14,32 @@ import (
 	"github.com/avivbintangaringga/ayobayar/types"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
 type app struct {
 	addr              string
 	paymentProcessors map[string]types.UpstreamPaymentProcessor
+	db                *sql.DB
 }
 
 func main() {
+	db, err := sql.Open("pgx", config.Env.DatabaseUrl)
+	if err != nil {
+		log.Fatalf("Error connecting to database: %s", err)
+		os.Exit(1)
+	}
+
 	paymentProcessors := make(map[string]types.UpstreamPaymentProcessor)
 	paymentProcessors["QD"] = dompetkitawallet.NewClient()
 
 	app := &app{
 		addr:              fmt.Sprintf(":%d", config.Env.Port),
 		paymentProcessors: paymentProcessors,
+		db:                db,
 	}
 
-	err := startServer(app)
+	err = startServer(app)
 	if err != nil {
 		log.Fatalf("Error starting server: %s", err)
 		os.Exit(1)

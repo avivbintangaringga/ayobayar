@@ -23,6 +23,7 @@ type paymentMethodsTable struct {
 	SmallImageURL postgres.ColumnString
 	TotalFee      postgres.ColumnInteger
 	Category      postgres.ColumnString
+	IsAvailable   postgres.ColumnBool
 	CreatedAt     postgres.ColumnTimestamp
 
 	AllColumns     postgres.ColumnList
@@ -71,10 +72,11 @@ func newPaymentMethodsTableImpl(schemaName, tableName, alias string) paymentMeth
 		SmallImageURLColumn = postgres.StringColumn("small_image_url")
 		TotalFeeColumn      = postgres.IntegerColumn("total_fee")
 		CategoryColumn      = postgres.StringColumn("category")
+		IsAvailableColumn   = postgres.BoolColumn("is_available")
 		CreatedAtColumn     = postgres.TimestampColumn("created_at")
-		allColumns          = postgres.ColumnList{IDColumn, NameColumn, BigImageURLColumn, SmallImageURLColumn, TotalFeeColumn, CategoryColumn, CreatedAtColumn}
-		mutableColumns      = postgres.ColumnList{NameColumn, BigImageURLColumn, SmallImageURLColumn, TotalFeeColumn, CategoryColumn, CreatedAtColumn}
-		defaultColumns      = postgres.ColumnList{CreatedAtColumn}
+		allColumns          = postgres.ColumnList{IDColumn, NameColumn, BigImageURLColumn, SmallImageURLColumn, TotalFeeColumn, CategoryColumn, IsAvailableColumn, CreatedAtColumn}
+		mutableColumns      = postgres.ColumnList{NameColumn, BigImageURLColumn, SmallImageURLColumn, TotalFeeColumn, CategoryColumn, IsAvailableColumn, CreatedAtColumn}
+		defaultColumns      = postgres.ColumnList{IsAvailableColumn, CreatedAtColumn}
 	)
 
 	return paymentMethodsTable{
@@ -87,6 +89,7 @@ func newPaymentMethodsTableImpl(schemaName, tableName, alias string) paymentMeth
 		SmallImageURL: SmallImageURLColumn,
 		TotalFee:      TotalFeeColumn,
 		Category:      CategoryColumn,
+		IsAvailable:   IsAvailableColumn,
 		CreatedAt:     CreatedAtColumn,
 
 		AllColumns:     allColumns,

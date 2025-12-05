@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS payment_methods (
     small_image_url VARCHAR(1024) NOT NULL,
     total_fee INT NOT NULL,
     category VARCHAR(255) NOT NULL,
+    is_available BOOLEAN NOT NULL DEFAULT TRUE,
     created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 -- +goose StatementEnd

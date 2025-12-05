@@ -75,7 +75,7 @@ func (h *Handler) PostPayment(w http.ResponseWriter, r *http.Request) {
 		ProductDetails:  data.ProductDetails,
 	}
 
-	payment, err := h.svc.CreatePayment(paymentData)
+	payment, upstreamPaymentResult, err := h.svc.CreatePayment(paymentData)
 	if err != nil {
 		slog.Error("PostPayment", "error", err)
 
@@ -88,5 +88,11 @@ func (h *Handler) PostPayment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	json.WriteSuccess(w, payment)
+	response := types.PaymentResponse{
+		PaymentUrl:  upstreamPaymentResult.PaymentUrl,
+		QrString:    upstreamPaymentResult.QrContent,
+		PaymentData: *payment,
+	}
+
+	json.WriteSuccess(w, response)
 }
