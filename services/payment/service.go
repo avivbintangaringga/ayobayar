@@ -7,12 +7,14 @@ import (
 type Service struct {
 	paymentRepo       types.PaymentRepository
 	paymentMethodRepo types.PaymentMethodRepository
+	paymentProcessors map[string]types.UpstreamPaymentProcessor
 }
 
-func NewService(paymentRepo types.PaymentRepository, paymentMethodRepo types.PaymentMethodRepository) *Service {
+func NewService(paymentRepo types.PaymentRepository, paymentMethodRepo types.PaymentMethodRepository, paymentProcessors map[string]types.UpstreamPaymentProcessor) *Service {
 	return &Service{
 		paymentRepo:       paymentRepo,
 		paymentMethodRepo: paymentMethodRepo,
+		paymentProcessors: paymentProcessors,
 	}
 }
 

@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-func NewHandler() http.Handler {
+func NewApiHandler(app *app) http.Handler {
 	r := chi.NewRouter()
 
 	// Common
@@ -25,7 +25,7 @@ func NewHandler() http.Handler {
 
 	// Payments
 	paymentRepo := payment.NewRepository()
-	paymentService := payment.NewService(paymentRepo, paymentMethodRepo)
+	paymentService := payment.NewService(paymentRepo, paymentMethodRepo, app.paymentProcessors)
 	paymentHandler := payment.NewHandler(paymentService)
 	r.Get("/payments/{id}", paymentHandler.GetPaymentDetail)
 	r.Get("/payments", paymentHandler.ListPayments)

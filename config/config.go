@@ -10,6 +10,7 @@ import (
 type config struct {
 	Port        int
 	DatabaseUrl string
+	DevMode     bool
 }
 
 var Env = loadEnv()
@@ -20,6 +21,7 @@ func loadEnv() *config {
 	return &config{
 		Port:        getEnvInt("PORT", 8080),
 		DatabaseUrl: getEnvString("DATABASE_URL", ""),
+		DevMode:     getEnvString("DEV_MODE", "true") == "true",
 	}
 }
 

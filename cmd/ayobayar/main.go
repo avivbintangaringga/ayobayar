@@ -8,20 +8,25 @@ import (
 
 	"net/http"
 
-	"github.com/avivbintangaringga/ayobayar/cmd/api"
-	"github.com/avivbintangaringga/ayobayar/cmd/web"
+	"github.com/avivbintangaringga/ayobayar/clients/dompetkitawallet"
 	"github.com/avivbintangaringga/ayobayar/config"
+	"github.com/avivbintangaringga/ayobayar/types"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
 
 type app struct {
-	addr string
+	addr              string
+	paymentProcessors map[string]types.UpstreamPaymentProcessor
 }
 
 func main() {
+	paymentProcessors := make(map[string]types.UpstreamPaymentProcessor)
+	paymentProcessors["QD"] = dompetkitawallet.NewClient()
+
 	app := &app{
-		addr: fmt.Sprintf(":%d", config.Env.Port),
+		addr:              fmt.Sprintf(":%d", config.Env.Port),
+		paymentProcessors: paymentProcessors,
 	}
 
 	err := startServer(app)
@@ -43,10 +48,10 @@ func startServer(app *app) error {
 		middleware.CleanPath,
 	)
 
-	apiHandler := api.NewHandler()
+	apiHandler := NewApiHandler(app)
 	r.Mount("/api/v1", apiHandler)
 
-	webHandler := web.Newhandler()
+	webHandler := NewWebHandler()
 	r.Mount("/", webHandler)
 
 	log.Println("Starting server on address", app.addr)
