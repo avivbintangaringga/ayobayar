@@ -2,6 +2,7 @@ package json
 
 import (
 	"encoding/json"
+	"log/slog"
 	"net/http"
 
 	"github.com/avivbintangaringga/ayobayar/types"
@@ -13,6 +14,7 @@ var validate = validator.New(validator.WithRequiredStructEnabled())
 func Validate(v any) error {
 	err := validate.Struct(v)
 	if err != nil {
+		slog.Error("Validate", "error", err)
 		return types.ErrValidation
 	}
 	return nil

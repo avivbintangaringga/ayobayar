@@ -88,7 +88,7 @@ func newPaymentsTableImpl(schemaName, tableName, alias string) paymentsTable {
 		CreatedAtColumn       = postgres.TimestampColumn("created_at")
 		allColumns            = postgres.ColumnList{IDColumn, PaymentMethodIDColumn, AmountColumn, StatusColumn, ExpiryTimeColumn, CallbackURLColumn, RedirectURLColumn, MerchantIDColumn, MerchantOrderIDColumn, CustomerEmailColumn, CustomerNameColumn, CustomerPhoneColumn, ProductDetailsColumn, CreatedAtColumn}
 		mutableColumns        = postgres.ColumnList{PaymentMethodIDColumn, AmountColumn, StatusColumn, ExpiryTimeColumn, CallbackURLColumn, RedirectURLColumn, MerchantIDColumn, MerchantOrderIDColumn, CustomerEmailColumn, CustomerNameColumn, CustomerPhoneColumn, ProductDetailsColumn, CreatedAtColumn}
-		defaultColumns        = postgres.ColumnList{CreatedAtColumn}
+		defaultColumns        = postgres.ColumnList{StatusColumn, CreatedAtColumn}
 	)
 
 	return paymentsTable{

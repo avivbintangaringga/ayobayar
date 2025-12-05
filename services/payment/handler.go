@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log/slog"
 	"net/http"
+	"time"
 
 	"github.com/avivbintangaringga/ayobayar/json"
 	"github.com/avivbintangaringga/ayobayar/types"
@@ -62,16 +63,24 @@ func (h *Handler) PostPayment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	expiryTime, err := time.Parse(time.RFC3339, data.ExpiryTime)
+	if err != nil {
+		slog.Error("PostPayment", "parse expiry time", err)
+		json.WriteError(w, http.StatusBadRequest, "bad request")
+		return
+	}
+
 	paymentData := types.Payment{
 		PaymentMethodId: data.PaymentMethodId,
 		Amount:          data.Amount,
-		ExpiryTime:      data.ExpiryTime,
+		ExpiryTime:      expiryTime,
 		CallbackUrl:     data.CallbackUrl,
 		RedirectUrl:     data.RedirectUrl,
 		MerchantId:      data.MerchantId,
 		MerchantOrderId: data.MerchantOrderId,
 		CustomerEmail:   data.CustomerEmail,
 		CustomerName:    data.CustomerName,
+		CustomerPhone:   data.CustomerPhone,
 		ProductDetails:  data.ProductDetails,
 	}
 

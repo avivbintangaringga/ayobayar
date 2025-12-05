@@ -2,9 +2,9 @@
 -- +goose StatementBegin
 CREATE TABLE IF NOT EXISTS payments (
     id VARCHAR(36) PRIMARY KEY NOT NULL UNIQUE,
-    payment_method_id VARCHAR(2) NOT NULL REFERENCES payment_methods(id),
+    payment_method_id VARCHAR(2) NOT NULL REFERENCES payment_methods(id) ON UPDATE CASCADE ON DELETE CASCADE,
     amount BIGINT NOT NULL,
-    status VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL DEFAULT 'PENDING',
     expiry_time TIMESTAMP NOT NULL,
     callback_url VARCHAR(1024) NOT NULL,
     redirect_url VARCHAR(1024) NOT NULL,

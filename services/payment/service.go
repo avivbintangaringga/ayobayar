@@ -1,8 +1,6 @@
 package payment
 
 import (
-	"errors"
-
 	"github.com/avivbintangaringga/ayobayar/types"
 )
 
@@ -34,16 +32,24 @@ func (s *Service) GetPaymentDetail(id string) (*types.Payment, error) {
 
 func (s *Service) CreatePayment(data types.Payment) (*types.Payment, *types.UpstreamPaymentResult, error) {
 	// Check if payment processor is available
-	pp := s.paymentProcessors[data.PaymentMethodId]
-	if pp == nil {
-		return nil, nil, errors.New("payment method is not available")
-	}
+	// pp := s.paymentProcessors[data.PaymentMethodId]
+	// if pp == nil {
+	// 	return nil, nil, errors.New("payment method is not available")
+	// }
 
-	// Request payment processor to create payment
-	res, err := pp.RequestPayment(data)
-	if err != nil {
-		return nil, nil, err
+	// // Request payment processor to create payment
+	// res, err := pp.RequestPayment(data)
+	// if err != nil {
+	// 	return nil, nil, err
+	// }
+	//
+	dummyRes := types.UpstreamPaymentResult{
+		PaymentId:  "abc123",
+		PaymentUrl: "https://thiswillbepaymenturl.com/abc123",
+		QrContent:  "abcabcbacbacbacbacbabcabcabcbacbabc",
+		Status:     "PENDING",
 	}
+	res := dummyRes
 
 	payment, err := s.paymentRepo.Create(data)
 	if err != nil {

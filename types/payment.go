@@ -12,7 +12,7 @@ var (
 type Payment struct {
 	Id              string    `json:"id"`
 	PaymentMethodId string    `json:"payment_method_id"`
-	Amount          int       `json:"amount"`
+	Amount          int64     `json:"amount"`
 	Status          string    `json:"status"`
 	ExpiryTime      time.Time `json:"expiry_time"`
 	CallbackUrl     string    `json:"callback_url"`
@@ -27,16 +27,17 @@ type Payment struct {
 }
 
 type PaymentRequest struct {
-	PaymentMethodId string    `json:"payment_method_id" validate:"required,alpha,len=2,uppercase"`
-	Amount          int       `json:"amount" validate:"required,min=1000,max=100000000"`
-	ExpiryTime      time.Time `json:"expiry_time" validate:"required,datetime,gt=1"`
-	CallbackUrl     string    `json:"callback_url" validate:"required,url,min=1,max=1024"`
-	RedirectUrl     string    `json:"redirect_url" validate:"required,url,min=1,max=1024"`
-	MerchantId      string    `json:"merchant_id" validate:"required,min=1,max=255"`
-	MerchantOrderId string    `json:"merchant_order_id" validate:"required,min=1,max=255"`
-	CustomerEmail   string    `json:"customer_email" validate:"required,email,min=1,max=255"`
-	CustomerName    string    `json:"customer_name" validate:"required,min=1,max=255"`
-	ProductDetails  string    `json:"product_details" validate:"required,min=1,max=255"`
+	PaymentMethodId string `json:"payment_method_id" validate:"required,alpha,len=2,uppercase"`
+	Amount          int64  `json:"amount" validate:"required,min=1000,max=100000000"`
+	ExpiryTime      string `json:"expiry_time" validate:"required,datetime=2006-01-02T15:04:05Z07:00"`
+	CallbackUrl     string `json:"callback_url" validate:"required,url,min=1,max=1024"`
+	RedirectUrl     string `json:"redirect_url" validate:"required,url,min=1,max=1024"`
+	MerchantId      string `json:"merchant_id" validate:"required,min=1,max=255"`
+	MerchantOrderId string `json:"merchant_order_id" validate:"required,min=1,max=255"`
+	CustomerEmail   string `json:"customer_email" validate:"required,email,min=1,max=255"`
+	CustomerName    string `json:"customer_name" validate:"required,min=1,max=255"`
+	CustomerPhone   string `json:"customer_phone" validate:"required,min=5,max=20"`
+	ProductDetails  string `json:"product_details" validate:"required,min=1,max=255"`
 }
 
 type PaymentResponse struct {

@@ -24,7 +24,7 @@ func NewApiHandler(app *app) http.Handler {
 	r.Get("/paymentmethods", paymentMethodHandler.GetPaymentMethods)
 
 	// Payments
-	paymentRepo := payment.NewRepository()
+	paymentRepo := payment.NewRepository(app.db)
 	paymentService := payment.NewService(paymentRepo, paymentMethodRepo, app.paymentProcessors)
 	paymentHandler := payment.NewHandler(paymentService)
 	r.Get("/payments/{id}", paymentHandler.GetPaymentDetail)
