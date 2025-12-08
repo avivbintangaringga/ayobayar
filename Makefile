@@ -1,16 +1,16 @@
 include .env
 
 run: | jet-generate
-	@go tool air
+	@air
 
 jet-generate: | migrate-up
-	@go tool jet -dsn="${DATABASE_URL}" -path=./db/jet
+	@jet -dsn="${DATABASE_URL}" -schema=public -path=./db/jet
 
 migrate-up:
-	@go tool goose up
+	@goose up
 
 migrate-down:
-	@go tool goose down
+	@goose down
 
 migrate-reset:
-	@go tool goose reset
+	@goose reset
