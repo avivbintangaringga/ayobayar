@@ -11,6 +11,17 @@ import (
 	"github.com/avivbintangaringga/ayobayar/types"
 )
 
+type Client struct {
+	client  *http.Client
+	baseUrl string
+}
+
+type Response struct {
+	PaymentId  string `json:"payment_id"`
+	PaymentUrl string `json:"payment_url"`
+	Status     string `json:"status"`
+}
+
 func NewClient() *Client {
 	baseUrl := "https://prod.dompetkita.my.id/"
 	if config.Env.DevMode {
@@ -44,7 +55,7 @@ func (c *Client) RequestPayment(req types.Payment) (types.UpstreamPaymentResult,
 		return types.UpstreamPaymentResult{}, errors.New("failed to send payment request")
 	}
 
-	var content DompetKitaWalletResponse
+	var content Response
 	err = json.NewDecoder(resp.Body).Decode(&content)
 	if err != nil {
 		return types.UpstreamPaymentResult{}, err
@@ -61,9 +72,11 @@ func (c *Client) RequestPayment(req types.Payment) (types.UpstreamPaymentResult,
 }
 
 func (c *Client) IsPaymentSuccess(paymentId string) (bool, error) {
+	// TODO: Implement
 	return true, nil
 }
 
 func (c *Client) AcknowledgePayment(paymentId string) error {
+	// TODO: Implement
 	return nil
 }
