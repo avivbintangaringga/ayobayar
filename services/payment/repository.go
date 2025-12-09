@@ -55,7 +55,22 @@ func (r *Repository) FindById(id string) (*types.Payment, error) {
 }
 
 func (r *Repository) Update(id string, data types.Payment) (*types.Payment, error) {
-	return nil, nil
+	m := typeToModel(data)
+
+	st := Payments.UPDATE().
+		MODEL(m).
+		WHERE(Payments.ID.EQ(Text(id))).
+		RETURNING(Payments.AllColumns)
+
+	var qr model.Payments
+	err := st.Query(r.db, qr)
+	if err != nil {
+		return nil, err
+	}
+
+	res := modelToType(qr)
+
+	return &res, nil
 }
 
 func (r *Repository) Delete(id string) error {
@@ -66,7 +81,7 @@ func (r *Repository) Delete(id string) error {
 	if err != nil {
 		return err
 	}
-	//TODO: CHECK
+
 	return nil
 }
 
