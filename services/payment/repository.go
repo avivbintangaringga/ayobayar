@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/avivbintangaringga/ayobayar/db/jet/ayobayar/public/model"
-	. "github.com/avivbintangaringga/ayobayar/db/jet/ayobayar/public/table"
+	"github.com/avivbintangaringga/ayobayar/db/jet/model"
+	. "github.com/avivbintangaringga/ayobayar/db/jet/table"
 	"github.com/avivbintangaringga/ayobayar/types"
 	. "github.com/go-jet/jet/v2/postgres"
 	"github.com/teris-io/shortid"
