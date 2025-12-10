@@ -3,8 +3,8 @@ package assets
 import "embed"
 
 //go:embed static
-var assets embed.FS
+var static embed.FS
 
-func GetFS() *embed.FS {
-	return &assets
+func Static() *embed.FS {
+	return &static
 }

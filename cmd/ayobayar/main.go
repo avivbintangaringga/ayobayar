@@ -34,7 +34,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	assetsFs := assets.GetFS()
+	assetsFs := assets.Static()
 	st, err := fs.Sub(assetsFs, "static")
 	if err != nil {
 		slog.Error("STATIC", "error", err)
