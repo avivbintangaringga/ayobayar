@@ -1,0 +1,10 @@
+package paymentlistpage
+
+import "github.com/avivbintangaringga/ayobayar/types"
+import "github.com/avivbintangaringga/ayobayar/web/basepage"
+
+templ Page(payments []types.Payment) {
+	@basepage.BasePage("Payments") {
+		<h3>Payments content</h3>
+	}
+}
