@@ -3,12 +3,15 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"io/fs"
 	"log"
+	"log/slog"
 	"os"
 	"time"
 
 	"net/http"
 
+	"github.com/avivbintangaringga/ayobayar/assets"
 	"github.com/avivbintangaringga/ayobayar/clients/dompetkitawallet"
 	"github.com/avivbintangaringga/ayobayar/config"
 	"github.com/avivbintangaringga/ayobayar/types"
@@ -21,12 +24,20 @@ type app struct {
 	addr              string
 	paymentProcessors map[string]types.UpstreamPaymentProcessor
 	db                *sql.DB
+	staticFiles       fs.FS
 }
 
 func main() {
 	db, err := sql.Open("pgx", config.Env.DatabaseUrl)
 	if err != nil {
 		log.Fatalf("Error connecting to database: %s", err)
+		os.Exit(1)
+	}
+
+	assetsFs := assets.GetFS()
+	st, err := fs.Sub(assetsFs, "static")
+	if err != nil {
+		slog.Error("STATIC", "error", err)
 		os.Exit(1)
 	}
 
@@ -37,6 +48,7 @@ func main() {
 		addr:              fmt.Sprintf(":%d", config.Env.Port),
 		paymentProcessors: paymentProcessors,
 		db:                db,
+		staticFiles:       st,
 	}
 
 	err = startServer(app)
@@ -61,7 +73,7 @@ func startServer(app *app) error {
 	apiHandler := NewApiHandler(app)
 	r.Mount("/api/v1", apiHandler)
 
-	webHandler := NewWebHandler()
+	webHandler := NewWebHandler(app)
 	r.Mount("/", webHandler)
 
 	log.Println("Starting server on address", app.addr)

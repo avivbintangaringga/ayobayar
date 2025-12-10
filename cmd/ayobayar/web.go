@@ -3,15 +3,22 @@ package main
 import (
 	"net/http"
 
-	"github.com/avivbintangaringga/ayobayar/web/basepage"
+	"github.com/avivbintangaringga/ayobayar/types"
+	"github.com/avivbintangaringga/ayobayar/web/paymentlistpage"
+	"github.com/avivbintangaringga/ayobayar/web/static"
 	"github.com/go-chi/chi/v5"
 )
 
-func NewWebHandler() http.Handler {
+func NewWebHandler(app *app) http.Handler {
 	r := chi.NewRouter()
 
+	staticPrefix := "/static/"
+	staticHandler := static.NewHandler(app.staticFiles, staticPrefix)
+	r.Get("/static/*", staticHandler.ServeStatic)
+
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		basepage.BasePage("HELLO WORLD").Render(r.Context(), w)
+		payments := []types.Payment{}
+		paymentlistpage.Page(payments).Render(r.Context(), w)
 	})
 
 	return r

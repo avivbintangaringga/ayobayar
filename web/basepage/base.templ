@@ -4,10 +4,13 @@ templ BasePage(title string) {
 	<html>
 		<head>
 			<title>{ title }</title>
+			<rel-link rel="stylesheet" href="/static/style/app.css"></rel-link>
 		</head>
 		<body>
 			<h1>{ title }</h1>
-			HELLO WORLD! X
+			<div class="container mx-auto">
+				{ children... }
+			</div>
 		</body>
 	</html>
 }
