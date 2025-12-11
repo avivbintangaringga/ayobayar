@@ -183,22 +183,10 @@
       max-width: 96rem;
     }
   }
+  .mx-auto {
+    margin-inline: auto;
+  }
   .table {
     display: table;
-  }
-  .min-h-screen {
-    min-height: 100vh;
-  }
-  .min-w-screen {
-    min-width: 100vw;
-  }
-  .bg-red-500 {
-    background-color: var(--color-red-500);
-  }
-  .p-8 {
-    padding: calc(var(--spacing) * 8);
-  }
-  .text-white {
-    color: var(--color-white);
   }
 }

@@ -38,6 +38,7 @@ type PaymentRequest struct {
 	CustomerName    string `json:"customer_name" validate:"required,min=1,max=255"`
 	CustomerPhone   string `json:"customer_phone" validate:"required,min=5,max=20"`
 	ProductDetails  string `json:"product_details" validate:"required,min=1,max=255"`
+	Signature       string `json:"signature" validate:"required,len=32"`
 }
 
 type PaymentResponse struct {

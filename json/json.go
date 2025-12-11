@@ -52,3 +52,12 @@ func createPayload(success bool, statusCode int, message string, data any) *type
 func ReadRequestBody(r *http.Request, v any) error {
 	return json.NewDecoder(r.Body).Decode(v)
 }
+
+func ToStringWithFallback(v any, fallback string) string {
+	var out []byte
+	out, err := json.Marshal(v)
+	if err != nil {
+		out = []byte(fallback)
+	}
+	return string(out)
+}

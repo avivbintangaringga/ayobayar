@@ -3,7 +3,8 @@ package main
 import (
 	"net/http"
 
-	"github.com/avivbintangaringga/ayobayar/types"
+	"github.com/avivbintangaringga/ayobayar/services/payment"
+	"github.com/avivbintangaringga/ayobayar/services/paymentmethod"
 	"github.com/avivbintangaringga/ayobayar/web/paymentlistpage"
 	"github.com/avivbintangaringga/ayobayar/web/static"
 	"github.com/go-chi/chi/v5"
@@ -16,10 +17,11 @@ func NewWebHandler(app *app) http.Handler {
 	staticHandler := static.NewHandler(app.staticFiles, staticPrefix)
 	r.Get("/static/*", staticHandler.ServeStatic)
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		payments := []types.Payment{}
-		paymentlistpage.Page(payments).Render(r.Context(), w)
-	})
+	paymentMethodRepo := paymentmethod.NewRepository(app.db)
+	paymentRepo := payment.NewRepository(app.db)
+	paymentService := payment.NewService(paymentRepo, paymentMethodRepo, app.paymentProcessors)
+	paymentListPage := paymentlistpage.NewHandler(paymentService)
+	r.Get("/", paymentListPage.Handle)
 
 	return r
 }
