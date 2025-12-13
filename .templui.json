@@ -1,0 +1,7 @@
+{
+  "componentsDir": "./web/components",
+  "utilsDir": "utils",
+  "moduleName": "github.com/avivbintangaringga/ayobayar",
+  "jsDir": "assets/static/js",
+  "jsPublicPath": "/static/js"
+}

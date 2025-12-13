@@ -2,12 +2,115 @@ package paymentlistpage
 
 import "github.com/avivbintangaringga/ayobayar/types"
 import "github.com/avivbintangaringga/ayobayar/web/basepage"
-import "github.com/avivbintangaringga/ayobayar/json"
+import "github.com/avivbintangaringga/ayobayar/web/components/card"
+import "github.com/avivbintangaringga/ayobayar/web/components/button"
+import "github.com/avivbintangaringga/ayobayar/web/components/table"
 
-templ page(payment types.Payment) {
+import "time"
+import "github.com/avivbintangaringga/ayobayar/web/components/badge"
+
+templ page(payments []types.Payment) {
 	@basepage.BasePage("Payments") {
-		<h3>Payments content</h3>
-		{{ pString := json.ToStringWithFallback(payment, "ERROR") }}
-		{ pString }
+		<div class="container mx-auto dark">
+			@card.Card() {
+				@card.Header() {
+					@card.Title() {
+						Payments
+					}
+					@card.Description() {
+						List of all payments
+					}
+				}
+				@card.Content() {
+					@table.Table() {
+						@table.Header() {
+							@table.Row() {
+								@table.Head() {
+									ID
+								}
+								@table.Head() {
+									Method
+								}
+								@table.Head() {
+									Amount
+								}
+								@table.Head() {
+									Status
+								}
+								@table.Head() {
+									Expiry Time
+								}
+								@table.Head() {
+									Customer Email
+								}
+								@table.Head() {
+									Created At
+								}
+								@table.Head() {
+									Action
+								}
+							}
+						}
+						@table.Body() {
+							for _, pay := range payments {
+								@table.Row(table.RowProps{
+									Class: "text-foreground",
+								}) {
+									@table.Cell() {
+										{ pay.Id }
+									}
+									@table.Cell() {
+										{ pay.PaymentMethodId }
+									}
+									@table.Cell() {
+										{ pay.Amount }
+									}
+									@table.Cell() {
+										{{
+											badgeClass := "bg-yellow-500"
+											switch pay.Status {
+											case "SUCCESS":
+												badgeClass = "bg-green-500"
+											case "CANCELLED":
+												badgeClass = "bg-red-500"
+											case "FAILED":
+												badgeClass = "bg-red-500"
+											}
+										}}
+										@badge.Badge(badge.Props{
+											Class: badgeClass,
+										}) {
+											{ pay.Status }
+										}
+									}
+									@table.Cell() {
+										{ pay.ExpiryTime.Format(time.RFC1123) }
+									}
+									@table.Cell() {
+										{ pay.CustomerEmail }
+									}
+									@table.Cell() {
+										{ pay.CreatedAt.Format(time.RFC1123) }
+									}
+									@table.Cell() {
+										@button.Button(button.Props{
+											Variant: button.VariantDestructive,
+											Class:   "text-white",
+										}) {
+											Cancel
+										}
+									}
+								}
+							}
+						}
+					}
+					@button.Button(button.Props{
+						Class: "mt-8",
+					}) {
+						BUTTON CONTENT
+					}
+				}
+			}
+		</div>
 	}
 }

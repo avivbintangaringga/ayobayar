@@ -34,6 +34,12 @@ func main() {
 		os.Exit(1)
 	}
 
+	err = db.Ping()
+	if err != nil {
+		log.Fatalf("Cannot connect to database: %s", err)
+		os.Exit(1)
+	}
+
 	assetsFs := assets.Static()
 	st, err := fs.Sub(assetsFs, "static")
 	if err != nil {

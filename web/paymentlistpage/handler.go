@@ -1,6 +1,7 @@
 package paymentlistpage
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/avivbintangaringga/ayobayar/types"
@@ -17,13 +18,10 @@ func NewHandler(ps types.PaymentService) *Handler {
 }
 
 func (h *Handler) Handle(w http.ResponseWriter, r *http.Request) {
-	var payment types.Payment
 	payments, err := h.ps.GetPaymentList()
 	if err != nil || len(payments) == 0 {
-		payment = types.Payment{}
+		slog.Error("PAYMENTLISTPAGE", "error", err)
 	}
 
-	payment = payments[0]
-
-	page(payment).Render(r.Context(), w)
+	page(payments).Render(r.Context(), w)
 }
