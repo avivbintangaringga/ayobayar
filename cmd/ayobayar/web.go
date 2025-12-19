@@ -6,6 +6,7 @@ import (
 	"github.com/avivbintangaringga/ayobayar/services/payment"
 	"github.com/avivbintangaringga/ayobayar/services/paymentmethod"
 	"github.com/avivbintangaringga/ayobayar/web/paymentlistpage"
+	"github.com/avivbintangaringga/ayobayar/web/paymentpage"
 	"github.com/avivbintangaringga/ayobayar/web/static"
 	"github.com/go-chi/chi/v5"
 )
@@ -20,8 +21,12 @@ func NewWebHandler(app *app) http.Handler {
 	paymentMethodRepo := paymentmethod.NewRepository(app.db)
 	paymentRepo := payment.NewRepository(app.db)
 	paymentService := payment.NewService(paymentRepo, paymentMethodRepo, app.paymentProcessors)
+
 	paymentListPage := paymentlistpage.NewHandler(paymentService)
 	r.Get("/", paymentListPage.Handle)
+
+	paymentPage := paymentpage.NewHandler(paymentService)
+	r.Get("/payment/{id}", paymentPage.Handle)
 
 	return r
 }
