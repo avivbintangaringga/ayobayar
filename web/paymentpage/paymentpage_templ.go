@@ -260,7 +260,7 @@ func page(payment types.Payment) templ.Component {
 							}()
 						}
 						ctx = templ.InitializeContext(ctx)
-						templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<div class=\"flex flex-row space-x-4 items-center\"><img src=\"https://images.seeklogo.com/logo-png/40/1/shopee-pay-logo-png_seeklogo-406839.png\" class=\"w-16 h-8 object-cover rounded-sm border border-input\"><div>Shopee Pay</div></div>")
+						templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 14, "<div class=\"flex flex-row space-x-4 items-center\"><img src=\"/static/images/upstream/shopeepay.png\" class=\"w-16 h-8 object-cover rounded-sm border border-input\"><div>Shopee Pay</div></div>")
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
@@ -419,7 +419,7 @@ func page(payment types.Payment) templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = basepage.BasePage("Payment").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = basepage.BasePage("Detail Pembayaran").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
