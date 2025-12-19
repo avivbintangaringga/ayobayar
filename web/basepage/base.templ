@@ -11,8 +11,8 @@ templ BasePage(title string) {
 			<link rel="stylesheet" href="/static/css/app.css"/>
 			@input.Script()
 		</head>
-		<body>
-			<div class="bg-main-background py-8 dark min-h-svh">
+		<body class="bg-main-background dark">
+			<div class="min-h-svh">
 				{ children... }
 			</div>
 		</body>
