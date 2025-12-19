@@ -322,6 +322,15 @@
   .h-full {
     height: 100%;
   }
+  .max-h-8 {
+    max-height: calc(var(--spacing) * 8);
+  }
+  .max-h-12 {
+    max-height: calc(var(--spacing) * 12);
+  }
+  .max-h-16 {
+    max-height: calc(var(--spacing) * 16);
+  }
   .min-h-max {
     min-height: max-content;
   }
@@ -540,6 +549,10 @@
   .border-dotted {
     --tw-border-style: dotted;
     border-style: dotted;
+  }
+  .border-none {
+    --tw-border-style: none;
+    border-style: none;
   }
   .border-destructive {
     border-color: var(--destructive);
@@ -1057,6 +1070,22 @@
   .md\:rounded-md {
     @media (width >= 48rem) {
       border-radius: calc(var(--radius) - 2px);
+    }
+  }
+  .md\:border {
+    @media (width >= 48rem) {
+      border-style: var(--tw-border-style);
+      border-width: 1px;
+    }
+  }
+  .md\:bg-card {
+    @media (width >= 48rem) {
+      background-color: var(--card);
+    }
+  }
+  .md\:bg-transparent {
+    @media (width >= 48rem) {
+      background-color: transparent;
     }
   }
   .md\:py-8 {

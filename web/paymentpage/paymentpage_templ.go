@@ -50,7 +50,7 @@ func page(payment types.Payment) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"container mx-auto max-w-2xl md:content-center md:py-8 min-h-svh\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"container mx-auto max-w-2xl md:content-center md:py-8 min-h-svh bg-card md:bg-transparent\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -270,7 +270,7 @@ func page(payment types.Payment) templ.Component {
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div><div class=\"flex flex-col hidden\"><div class=\"flex flex-row justify-between items-center\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div><div class=\"flex flex-col\"><div class=\"flex flex-row justify-between items-center\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -395,7 +395,7 @@ func page(payment types.Payment) templ.Component {
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "</div>")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 23, "<div class=\"flex flex-col items-center mt-4\"><span class=\"text-xs\">Powered by</span> <img src=\"/static/images/AyoBayar-White.png\" class=\"max-h-8 object-contain\"></div></div>")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -408,7 +408,7 @@ func page(payment types.Payment) templ.Component {
 				return nil
 			})
 			templ_7745c5c3_Err = card.Card(card.Props{
-				Class: "rounded-none my-0 md:rounded-md",
+				Class: "border-none my-0 bg-transparent md:bg-card md:border",
 			}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -456,7 +456,7 @@ func lbl(title string) templ.Component {
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/paymentpage/paymentpage.templ`, Line: 100, Col: 65}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/paymentpage/paymentpage.templ`, Line: 107, Col: 65}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -616,7 +616,7 @@ func dataBox(ic func(...icon.Props) templ.Component, title, value string) templ.
 			var templ_7745c5c3_Var25 string
 			templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(value)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/paymentpage/paymentpage.templ`, Line: 122, Col: 15}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/paymentpage/paymentpage.templ`, Line: 129, Col: 15}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 			if templ_7745c5c3_Err != nil {

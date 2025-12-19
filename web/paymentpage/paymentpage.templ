@@ -11,9 +11,9 @@ var dummyQr = "https://shorturl.at/gpedS"
 
 templ page(payment types.Payment) {
 	@basepage.BasePage("Payment") {
-		<div class="container mx-auto max-w-2xl md:content-center md:py-8 min-h-svh">
+		<div class="container mx-auto max-w-2xl md:content-center md:py-8 min-h-svh bg-card md:bg-transparent">
 			@card.Card(card.Props{
-				Class: "rounded-none my-0 md:rounded-md",
+				Class: "border-none my-0 bg-transparent md:bg-card md:border",
 			}) {
 				@card.Header() {
 					<div class="flex flex-row gap-4">
@@ -58,7 +58,7 @@ templ page(payment types.Payment) {
 								</div>
 							}
 						</div>
-						<div class="flex flex-col hidden">
+						<div class="flex flex-col">
 							<div class="flex flex-row justify-between items-center">
 								@lbl("QR CODE")
 								@button.Button(button.Props{
@@ -88,6 +88,13 @@ templ page(payment types.Payment) {
 							@icon.CircleCheck()
 							SELESAIKAN PEMBAYARAN
 						}
+						<div class="flex flex-col items-center mt-4">
+							<span class="text-xs">Powered by</span>
+							<img
+								src="/static/images/AyoBayar-White.png"
+								class="max-h-8 object-contain"
+							/>
+						</div>
 					</div>
 				}
 			}
