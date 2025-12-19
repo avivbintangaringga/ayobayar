@@ -74,7 +74,7 @@ templ page(payment types.Payment) {
 							}
 							<div class="text-xs text-muted-foreground text-center mt-2">Scan QR Code di atas menggunakan aplikasi mobile banking atau e-wallet</div>
 						</div>
-						<div class="w-full grid grid-cols-2 gap-4">
+						<div class="w-full md:grid md:grid-cols-2 gap-4 space-y-4">
 							@dataBox(icon.User, "NAMA PELANGGAN", payment.CustomerName)
 							@dataBox(icon.Mail, "EMAIL PELANGGAN", payment.CustomerEmail)
 						</div>
@@ -108,7 +108,7 @@ templ lblWithIcon(title string, ic func(...icon.Props) templ.Component) {
 }
 
 templ box(classes ...string) {
-	<div class={ "rounded-md py-2 px-4 mt-2 text-sm bg-input/30 border border-input", classes }>
+	<div class={ "rounded-md py-2 px-4 mt-2 text-sm bg-input/30 border border-input overflow-x-scroll", classes }>
 		{ children... }
 	</div>
 }

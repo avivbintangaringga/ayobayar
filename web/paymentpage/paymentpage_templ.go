@@ -346,7 +346,7 @@ func page(payment types.Payment) templ.Component {
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<div class=\"text-xs text-muted-foreground text-center mt-2\">Scan QR Code di atas menggunakan aplikasi mobile banking atau e-wallet</div></div><div class=\"w-full grid grid-cols-2 gap-4\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, "<div class=\"text-xs text-muted-foreground text-center mt-2\">Scan QR Code di atas menggunakan aplikasi mobile banking atau e-wallet</div></div><div class=\"w-full md:grid md:grid-cols-2 gap-4 space-y-4\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -532,7 +532,7 @@ func box(classes ...string) templ.Component {
 			templ_7745c5c3_Var20 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var21 = []any{"rounded-md py-2 px-4 mt-2 text-sm bg-input/30 border border-input", classes}
+		var templ_7745c5c3_Var21 = []any{"rounded-md py-2 px-4 mt-2 text-sm bg-input/30 border border-input overflow-x-scroll", classes}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var21...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
