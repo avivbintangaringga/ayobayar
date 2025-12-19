@@ -1,0 +1,145 @@
+package paymentpage
+
+import "github.com/avivbintangaringga/ayobayar/types"
+import "github.com/avivbintangaringga/ayobayar/web/basepage"
+import "github.com/avivbintangaringga/ayobayar/web/components/card"
+import "github.com/avivbintangaringga/ayobayar/web/components/button"
+import "github.com/avivbintangaringga/ayobayar/web/components/icon"
+import "fmt"
+
+var dummyQr = "https://shorturl.at/gpedS"
+
+templ page(payment types.Payment) {
+	@basepage.BasePage("Payment") {
+		<div class="container mx-auto max-w-2xl">
+			@card.Card() {
+				@card.Header() {
+					<div class="flex flex-row gap-4">
+						<div class="w-1.5 bg-primary"></div>
+						<div class="flex flex-col gap-2">
+							@card.Title(card.TitleProps{
+								Class: "text-2xl font-bold",
+							}) {
+								Detail Pembayaran
+							}
+							@card.Description() {
+								#{ payment.Id }
+							}
+						</div>
+					</div>
+				}
+				@card.Content() {
+					<div class="flex flex-col gap-4">
+						@box() {
+							<div class="flex flex-row justify-between">
+								<div class="font-bold text-yellow-400">PENDING</div>
+								@lblWithIcon("Kadaluarsa dalam 15 menit", icon.Clock)
+							</div>
+						}
+						@box() {
+							<div class="flex flex-col gap-2 m-2">
+								@lbl("JUMLAH PEMBAYARAN")
+								<div class="text-3xl font-extrabold text-primary">
+									{ formatMoney(payment.Amount) }
+								</div>
+							</div>
+						}
+						<div>
+							@lblWithIcon("METODE PEMBAYARAN", icon.CreditCard)
+							@box() {
+								<div class="flex flex-row space-x-4 items-center">
+									<img
+										src="https://images.seeklogo.com/logo-png/40/1/shopee-pay-logo-png_seeklogo-406839.png"
+										class="w-16 h-8 object-cover rounded-sm border border-input"
+									/>
+									<div>Shopee Pay</div>
+								</div>
+							}
+						</div>
+						<div class="flex flex-col">
+							<div class="flex flex-row justify-between items-center">
+								@lbl("QR CODE")
+								@button.Button(button.Props{
+									Size:    button.SizeSm,
+									Variant: button.VariantOutline,
+								}) {
+									@icon.Download()
+									Download
+								}
+							</div>
+							@box("bg-white") {
+								<div class="flex flex-row p-4 justify-center">
+									<img src={ dummyQr } class=" object-contain"/>
+								</div>
+							}
+							<div class="text-xs text-muted-foreground text-center mt-2">Scan QR Code di atas menggunakan aplikasi mobile banking atau e-wallet</div>
+						</div>
+						<div class="w-full grid grid-cols-2 gap-4">
+							@dataBox(icon.User, "NAMA PELANGGAN", payment.CustomerName)
+							@dataBox(icon.Mail, "EMAIL PELANGGAN", payment.CustomerEmail)
+						</div>
+						@dataBox(icon.Box, "DETAIL PRODUK", payment.ProductDetails)
+						@button.Button(button.Props{
+							Size:  button.SizeLg,
+							Class: "py-4 font-bold mt-4",
+						}) {
+							@icon.CircleCheck()
+							SELESAIKAN PEMBAYARAN
+						}
+					</div>
+				}
+			}
+		</div>
+	}
+}
+
+// Components
+templ lbl(title string) {
+	<div class="text-xs font-semibold text-muted-foreground">{ title }</div>
+}
+
+templ lblWithIcon(title string, ic func(...icon.Props) templ.Component) {
+	<div class="flex flex-row space-x-2 items-center">
+		@ic(icon.Props{
+			Size: 14,
+		})
+		@lbl(title)
+	</div>
+}
+
+templ box(classes ...string) {
+	<div class={ "rounded-md py-2 px-4 mt-2 text-sm bg-input/30 border border-input", classes }>
+		{ children... }
+	</div>
+}
+
+templ dataBox(ic func(...icon.Props) templ.Component, title, value string) {
+	<div>
+		@lblWithIcon(title, ic)
+		@box() {
+			<div>{ value }</div>
+		}
+	</div>
+}
+
+func formatMoney(value int64) string {
+	var result string
+	var isNegative bool
+
+	if value < 0 {
+		value = value * -1
+		isNegative = true
+	}
+
+	// for each 3 dígits put a dot "."
+	for value >= 1000 {
+		result = fmt.Sprintf("%s%03d%s", ".", value%1000, result)
+		value /= 1000
+	}
+
+	if isNegative {
+		return fmt.Sprintf("Rp -%d%s", value, result)
+	}
+
+	return fmt.Sprintf("Rp %d%s", value, result)
+}

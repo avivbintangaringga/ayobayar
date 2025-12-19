@@ -1,5 +1,7 @@
 package basepage
 
+import "github.com/avivbintangaringga/ayobayar/web/components/input"
+
 templ BasePage(title string) {
 	<html>
 		<head>
@@ -7,9 +9,10 @@ templ BasePage(title string) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<title>{ title }</title>
 			<link rel="stylesheet" href="/static/css/app.css"/>
+			@input.Script()
 		</head>
 		<body>
-			<div class="bg-main-background py-12 dark min-h-svh">
+			<div class="bg-main-background py-8 dark min-h-svh">
 				{ children... }
 			</div>
 		</body>
