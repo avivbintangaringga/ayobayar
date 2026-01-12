@@ -18,6 +18,7 @@ type PaymentMethod struct {
 
 type PaymentMethodService interface {
 	GetPaymentMethods() ([]PaymentMethod, error)
+	GetPaymentMethodById(id string) (*PaymentMethod, error)
 }
 
 type PaymentMethodRepository interface {

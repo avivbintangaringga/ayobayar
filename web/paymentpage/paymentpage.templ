@@ -7,9 +7,7 @@ import "github.com/avivbintangaringga/ayobayar/web/components/button"
 import "github.com/avivbintangaringga/ayobayar/web/components/icon"
 import "fmt"
 
-var dummyQr = "https://shorturl.at/gpedS"
-
-templ page(payment types.Payment) {
+templ page(payment types.Payment, method types.PaymentMethod, upstream types.UpstreamPaymentResult) {
 	@basepage.BasePage("Detail Pembayaran") {
 		<div class="container mx-auto max-w-2xl md:content-center md:py-8 min-h-svh bg-card md:bg-transparent">
 			@card.Card(card.Props{
@@ -58,30 +56,35 @@ templ page(payment types.Payment) {
 								</div>
 							}
 						</div>
-						<div class="flex flex-col">
-							<div class="flex flex-row justify-between items-center">
-								@lbl("QR CODE")
-								@button.Button(button.Props{
-									Size:    button.SizeSm,
-									Variant: button.VariantOutline,
-								}) {
-									@icon.Download()
-									Download
-								}
-							</div>
-							@box("bg-white") {
-								<div class="flex flex-row p-4 justify-center">
-									<img src={ dummyQr } class=" object-contain"/>
+						if upstream.QrContent != "" {
+							<div class="flex flex-col">
+								<div class="flex flex-row justify-between items-center">
+									@lbl("QR CODE")
+									@button.Button(button.Props{
+										ID:      "btn-qr-download",
+										Size:    button.SizeSm,
+										Variant: button.VariantOutline,
+									}) {
+										@icon.Download()
+										Download
+									}
 								</div>
-							}
-							<div class="text-xs text-muted-foreground text-center mt-2">Scan QR Code di atas menggunakan aplikasi mobile banking atau e-wallet</div>
-						</div>
+								@box("bg-white") {
+									<div class="flex flex-row p-4 justify-center">
+										<!-- <img src={ dummyQr } class=" object-contain"/> -->
+										<div id="qr-code"></div>
+									</div>
+								}
+								<div class="text-xs text-muted-foreground text-center mt-2">Scan QR Code di atas menggunakan aplikasi mobile banking atau e-wallet</div>
+							</div>
+						}
 						<div class="w-full md:grid md:grid-cols-2 gap-x-4 space-y-4 md:space-y-0">
 							@dataBox(icon.User, "NAMA PELANGGAN", payment.CustomerName)
 							@dataBox(icon.Mail, "EMAIL PELANGGAN", payment.CustomerEmail)
 						</div>
 						@dataBox(icon.Box, "DETAIL PRODUK", payment.ProductDetails)
 						@button.Button(button.Props{
+							ID:    "btn-selesai",
 							Size:  button.SizeLg,
 							Class: "py-4 font-bold mt-4",
 						}) {
@@ -98,6 +101,30 @@ templ page(payment types.Payment) {
 					</div>
 				}
 			}
+			<script src="/static/js/qrcode.min.js"></script>
+			<script type="text/javascript">
+				let qrContent = {{ upstream.QrContent }};
+
+				document.getElementById("btn-selesai").addEventListener("click", function() {
+				    if (qrContent !== "") {
+				        window.location.reload();
+					} else {
+						window.location.href = {{ upstream.PaymentUrl }};
+					}
+				});
+
+				new QRCode(document.getElementById("qr-code"), qrContent)
+
+				let qrCanvas = document.querySelector("#qr-code canvas");
+				let qrUrl = qrCanvas.toDataURL("image/png");
+
+				document.getElementById("btn-qr-download").addEventListener("click", function() {
+				  var link = document.createElement('a');
+                  link.download = {{ payment.Id }} + '-qrcode.png';
+                  link.href = qrUrl;
+                  link.click();
+				});
+			</script>
 		</div>
 	}
 }

@@ -80,3 +80,13 @@ func (c *Client) AcknowledgePayment(paymentId string) error {
 	// TODO: Implement
 	return nil
 }
+
+func (c *Client) GetPaymentResult(paymentId string) (types.UpstreamPaymentResult, error) {
+	// TODO: Implement
+	return types.UpstreamPaymentResult{
+		PaymentId:  "test-id",
+		PaymentUrl: "https://dompetkita.my.id/payment/test-id",
+		QrContent:  "DUMMY QR CONTENT",
+		Status:     "PENDING",
+	}, nil
+}

@@ -8,12 +8,16 @@ import (
 )
 
 type Handler struct {
-	paymentService types.PaymentService
+	paymentService       types.PaymentService
+	paymentMethodService types.PaymentMethodService
+	processor            map[string]types.UpstreamPaymentProcessor
 }
 
-func NewHandler(paymentService types.PaymentService) *Handler {
+func NewHandler(paymentService types.PaymentService, paymentMethodService types.PaymentMethodService, processor map[string]types.UpstreamPaymentProcessor) *Handler {
 	return &Handler{
-		paymentService: paymentService,
+		paymentService:       paymentService,
+		paymentMethodService: paymentMethodService,
+		processor:            processor,
 	}
 }
 
@@ -30,5 +34,17 @@ func (h *Handler) Handle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	page(*payment).Render(context.Background(), w)
+	method, err := h.paymentMethodService.GetPaymentMethodById(payment.PaymentMethodId)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	upstream, err := h.processor[payment.PaymentMethodId].GetPaymentResult(payment.Id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	page(*payment, *method, upstream).Render(context.Background(), w)
 }

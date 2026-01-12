@@ -27,8 +27,8 @@
     --color-border: var(--border);
     --color-input: var(--input);
     --color-ring: var(--ring);
-    --color-selection: #000000;
-    --color-selection-foreground: #000000;
+    --color-selection: var(--primary);
+    --color-selection-foreground: var(--primary-foreground);
     --color-main-background: #0a0a0a;
 }
 

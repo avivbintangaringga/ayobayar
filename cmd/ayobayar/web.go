@@ -25,7 +25,8 @@ func NewWebHandler(app *app) http.Handler {
 	paymentListPage := paymentlistpage.NewHandler(paymentService)
 	r.Get("/", paymentListPage.Handle)
 
-	paymentPage := paymentpage.NewHandler(paymentService)
+	paymentMethodService := paymentmethod.NewService(paymentMethodRepo)
+	paymentPage := paymentpage.NewHandler(paymentService, paymentMethodService, app.paymentProcessors)
 	r.Get("/payment/{id}", paymentPage.Handle)
 
 	return r

@@ -298,6 +298,9 @@
   .h-full {
     height: 100%;
   }
+  .h-svh {
+    height: 100svh;
+  }
   .max-h-8 {
     max-height: calc(var(--spacing) * 8);
   }
@@ -1207,8 +1210,8 @@
     border-color: var(--border);
   }
   ::selection {
-    background-color: #000000;
-    color: #000000;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
   }
   body {
     background-color: var(--background);

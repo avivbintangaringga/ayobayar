@@ -11,4 +11,5 @@ type UpstreamPaymentProcessor interface {
 	RequestPayment(req Payment) (UpstreamPaymentResult, error)
 	IsPaymentSuccess(paymentId string) (bool, error)
 	AcknowledgePayment(paymentId string) error
+	GetPaymentResult(paymentId string) (UpstreamPaymentResult, error)
 }

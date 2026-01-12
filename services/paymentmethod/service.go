@@ -17,3 +17,7 @@ func NewService(repository types.PaymentMethodRepository) *Service {
 func (s *Service) GetPaymentMethods() ([]types.PaymentMethod, error) {
 	return s.repository.List()
 }
+
+func (s *Service) GetPaymentMethodById(id string) (*types.PaymentMethod, error) {
+	return s.repository.FindById(id)
+}

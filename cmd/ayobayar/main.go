@@ -51,7 +51,7 @@ func main() {
 	paymentProcessors["QD"] = dompetkitawallet.NewClient()
 
 	app := &app{
-		addr:              fmt.Sprintf(":%d", config.Env.Port),
+		addr:              fmt.Sprintf("0.0.0.0:%d", config.Env.Port),
 		paymentProcessors: paymentProcessors,
 		db:                db,
 		staticFiles:       st,
