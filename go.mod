@@ -3,6 +3,7 @@ module github.com/avivbintangaringga/ayobayar
 go 1.25.3
 
 require (
+	github.com/a-h/templ v0.3.960
 	github.com/go-chi/chi/v5 v5.2.3
 	github.com/go-jet/jet/v2 v2.14.0
 	github.com/go-playground/validator/v10 v10.28.0
@@ -10,7 +11,6 @@ require (
 )
 
 require (
-	github.com/a-h/templ v0.3.960 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
